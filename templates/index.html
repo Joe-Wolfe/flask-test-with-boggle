@@ -13,20 +13,24 @@
 </head>
 
 <body>
-    <table class="board">
-        <tbody>
-            {% for r in board %}
-            <tr>
-                {% for letter in r %}
-                <td>{{ letter }}</td>
+    <section id="game">
+        <table class="board">
+            <tbody>
+                {% for r in board %}
+                <tr>
+                    {% for letter in r %}
+                    <td>{{ letter }}</td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <form method="POST">
-        <input class="guesses" autofocus placeholder="Enter your words!">
-    </form>
+            </tbody>
+        </table>
+        <form class="guesses" method="POST">
+            <input id="user-guess" autofocus placeholder="Enter your words!">
+        </form>
+    </section>
 </body>
+
+<script>let play = new BoggleGame()</script>
 
 </html>

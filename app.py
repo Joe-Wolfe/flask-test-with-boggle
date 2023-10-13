@@ -16,5 +16,4 @@ def home():
     session['board'] = board
     highscore = session.get("highscore", 0)
     numplays = session.get("numplays", 0)
-    print(session['board'])
     return render_template("index.html", board=board, highscore=highscore, numplays=numplays)
