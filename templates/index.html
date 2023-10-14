@@ -29,10 +29,18 @@
             <input id="user-guess" autofocus placeholder="Enter your words!">
         </form>
     </section>
-    <p id="msg"></p>
-    <ol>
+    <p>
+        Score: <b id="score">0</b>
+        Highscore: <b id="highscore">{{highscore}}</b>
+    </p>
 
+    <p>Times played: {{numplays}}</p>
+    <p>
+        Time left <b id="timer">--</b> Seconds</p>
+    <p id="msg"></p>
+    <ol id="word-list">
     </ol>
+
 </body>
 
 
