@@ -2,10 +2,11 @@ class BoggleGame {
     constructor() {
         this.board = $("#game");
         this.score = 0;
-        $(".guesses", this.board).on("submit", this.handleSubmit.bind(this));
-
         this.seconds = 60;
         this.timer = setInterval(this.countdown.bind(this), 1000);
+        this.submittedWords = new Set();
+
+        $(".guesses", this.board).on("submit", this.handleSubmit.bind(this));
 
     }
 
@@ -14,8 +15,11 @@ class BoggleGame {
 
         if (this.seconds === 0) return;
         let word = $("#user-guess").val();
-
         $("#user-guess").val("").focus();
+        if (this.submittedWords.has(word)) {
+            this.showMessage("Sorry " + word + " as allready been submitted.")
+            return;
+        }
         const response = await axios.get("/check", {
             params: {
                 word: word
@@ -25,10 +29,16 @@ class BoggleGame {
             case ("not-word"): this.showMessage(word + " is not a valid Enlish word."); break;
             case ("not-on-board"): this.showMessage(word + " is not a playable word."); break;
             default:
-                this.showMessage("congrats you found '" + word) + "'!";
+                this.showMessage("Congrats you found '" + word + "' !");
                 this.score += word.length;
                 this.updateScore();
+                this.submittedWords.add(word);
+                this.addWord(word);
         }
+    }
+
+    addWord(word) {
+        $("#word-list").append($("<li>", { text: word }));
     }
 
     showMessage(msg) {
